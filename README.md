@@ -1,0 +1,1 @@
+# srpago-gasoline-manager
