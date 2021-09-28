@@ -19,5 +19,4 @@ public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServ
         return new Class<?>[]{ WebConfig.class };
     }
 
-
 }

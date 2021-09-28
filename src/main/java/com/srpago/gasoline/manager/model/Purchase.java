@@ -1,42 +1,46 @@
-package com.srpago.gasoline.manager.dto;
+package com.srpago.gasoline.manager.model;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import java.util.Date;
 
-import io.swagger.annotations.ApiModel;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-@ApiModel("PurchaseRequest")
-public class InfoRQDto {
+@Entity
+public class Purchase {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private String email;
 
-	@NotNull(message = "email is required")
-    private String email;
-
-	@NotNull
     private String name;
 
-	@NotNull
     private String lastName;
 
-	@NotNull
     private String cardNumber;
 
-	@NotNull
     private Integer expirationDateYear;
 
-	@NotNull
     private Integer expirationDateMonth;
 
-	@NotNull
     private Integer gasType;
 
-	@Min(1)
     private Double amount;
     
-	@NotNull
     private String gasStation;
     
-	@NotNull
     private String sellerName;
+    
+    private Date date;
+    
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private FuelStation fuelStation;
 
     public String getEmail() {
         return email;
@@ -117,6 +121,30 @@ public class InfoRQDto {
     public void setSellerName(String sellerName) {
         this.sellerName = sellerName;
     }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public FuelStation getFuelStation() {
+		return fuelStation;
+	}
+
+	public void setFuelStation(FuelStation fuelStation) {
+		this.fuelStation = fuelStation;
+	}
     
-    
+
 }
