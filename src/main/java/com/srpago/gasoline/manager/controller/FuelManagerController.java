@@ -52,7 +52,7 @@ public class FuelManagerController {
     			    required = true)
 			@Valid @RequestBody InfoRQDto infoRQDto) {
 		validate(infoRQDto);
-		this.logger.info("Adding new purchase: " + infoRQDto);
+		this.logger.info("Receiving new purchase request: " + Utils.toJsonString(infoRQDto));
 		return this.fuelService.addNewPurchase(infoRQDto);
 	}
 
@@ -67,7 +67,7 @@ public class FuelManagerController {
 	@GetMapping("/fuel/purchases")
 	@ResponseStatus(HttpStatus.OK)
 	public List<PurchaseDto> getAllPurchases() {
-		this.logger.info("Retrieveing all purchases...");
+		this.logger.info("Requesting all purchases...");
 		return fuelService.getAllPurchases();
 	}
 	

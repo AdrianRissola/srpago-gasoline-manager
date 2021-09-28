@@ -2,6 +2,7 @@
 ```
 mvn clean install
 ```
+
 ## Generated WAR file for Tomcat 9 deployment
 ```
 FuelManager.war

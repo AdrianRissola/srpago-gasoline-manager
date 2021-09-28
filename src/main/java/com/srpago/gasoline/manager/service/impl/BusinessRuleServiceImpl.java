@@ -88,7 +88,7 @@ public class BusinessRuleServiceImpl implements BusinessRuleService {
 		for (int i = 0; i < numbers.length; i++) {
 			sum += numbers[i];
 		}
-		Utils.validateCondition(sum % 10 == 0, fme);
+		Utils.validateCondition((sum % 10 == 0)&&(!creditCardNumber.equals("0")), fme);
 	}
 	
 

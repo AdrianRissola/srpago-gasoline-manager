@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.srpago.gasoline.manager.external.model.FuelStations;
 import com.srpago.gasoline.manager.service.FuelStationService;
+import com.srpago.gasoline.manager.utils.Utils;
 
 @Service("fuelStationService")
 public class FuelStationServiceImpl implements FuelStationService {
@@ -22,7 +23,9 @@ public class FuelStationServiceImpl implements FuelStationService {
 	
 	@Override
 	public ResponseEntity<FuelStations> getById(String id) {
+		logger.info("Requestig GET ".concat(url).concat("?_id=").concat(id));
 		ResponseEntity<FuelStations> response = restTemplate.getForEntity(url.concat("?_id=").concat(id), FuelStations.class);
+		logger.info("Response for id:  ".concat(id) + Utils.toJsonString(response));
 		return response;
 	}
 

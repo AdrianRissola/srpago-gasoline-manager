@@ -18,6 +18,7 @@ import com.srpago.gasoline.manager.repository.PurchaseRepository;
 import com.srpago.gasoline.manager.service.BusinessRuleService;
 import com.srpago.gasoline.manager.service.FuelService;
 import com.srpago.gasoline.manager.service.FuelStationService;
+import com.srpago.gasoline.manager.utils.Utils;
 
 @Service("gasolineService")
 public class FuelServiceImpl implements FuelService {
@@ -39,17 +40,19 @@ public class FuelServiceImpl implements FuelService {
 		ResponseEntity<FuelStations> response = fuelStationService.getById(infoRQDto.getGasStation());
 		businessRuleService.validateRequestedFuelStation(response, infoRQDto);
 		Purchase newPurchase = DtoConverter.fromDto(infoRQDto);
-		logger.info("Saving new purchase..." + infoRQDto);
 		newPurchase.setFuelStation(response.getBody().getFuelStations().get(0));
 		newPurchase.setDate(new Date());
+		logger.info("Saving new purchase..." + newPurchase.toString());
 		Purchase newPurchaseSaved = purchaseRepository.save(newPurchase);
-		logger.info("Saved purchase:" + newPurchaseSaved);
+		logger.info("New purchase saved " + newPurchase.toString() + ":" + Utils.toJsonString(newPurchase));
 		return new ResponseDto(true, "Your purchase id: ".concat(String.valueOf(newPurchaseSaved.getId())));
 	}
 
 	@Override
 	public List<PurchaseDto> getAllPurchases() {
-		return DtoConverter.toDto(purchaseRepository.findAll());
+		List<Purchase> purchases = purchaseRepository.findAll();
+		logger.info("Retrieved purchases: " + Utils.toJsonString(purchases));
+		return DtoConverter.toDto(purchases);
 	}
 
 }
